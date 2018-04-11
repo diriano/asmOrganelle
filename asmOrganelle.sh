@@ -1,15 +1,5 @@
 #!/bin/bash
 
-#$ -q all.q
-#$ -cwd
-#$ -pe smp 10
-
-module load minimap2
-module load miniasm
-module load racon
-module load mira/4.9.6
-
-
 #=Check required Software=
 source ./asmOrganelle_reqSoft.sh
 #=Global Variables=
