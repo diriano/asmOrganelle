@@ -4,7 +4,7 @@
 ASMORG_PATH=./
 source ${ASMORG_PATH}/asmOrganelle_reqSoft.sh
 #=Global Variables=
-source ${ASMORG_CONFIG_PATH}/asmOrganelle_config.sh
+source ./asmOrganelle_config.sh
 
 ##############################################
 ##############################################

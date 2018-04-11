@@ -1,8 +1,5 @@
 # Must be defined by the user
 
-#PATH to asmOrganelle_config.sh
-ASMORG_CONFIG_PATH=./
-
 # Number of cores
 NSLOTS=10
 
