@@ -1,9 +1,10 @@
 #!/bin/bash
 
 #=Check required Software=
-source ./asmOrganelle_reqSoft.sh
+ASMORG_PATH=./
+source ${ASMORG_PATH}/asmOrganelle_reqSoft.sh
 #=Global Variables=
-source ./asmOrganelle_config.sh
+source ${ASMORG_CONFIG_PATH}/asmOrganelle_config.sh
 
 ##############################################
 ##############################################
