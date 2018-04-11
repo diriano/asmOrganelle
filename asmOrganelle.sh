@@ -9,7 +9,7 @@ source ./asmOrganelle_config.sh
 ##############################################
 ##############################################
 ##############################################
-LOG_DIR=logs_asmOrganlle
+LOG_DIR=logs_asmOrganelle
 mkdir -p ${LOG_DIR}
 LOG_FILE=${LOG_DIR}/${PREFIX}.asmOrganelle.log
 
