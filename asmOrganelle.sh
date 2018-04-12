@@ -30,8 +30,10 @@ for baitIter in $(seq 1 $NUMBER_ITER_BAIT); do
  # Further iteration will use the Racon contigs as reference, to bait for new reads.
  if [ "$baitIter" -eq 1 ]; then 
   REFERENCE=${EXTERNAL_REFERENCE}
+  NUMBER_KMERS=${NUMBER_KMERS}
  else
   REFERENCE=${PREFIX_PREV_ITER}.racon.${NUMBER_ITER_CNS}.fasta
+  NUMBER_KMERS=$((NUMBER_KMERS * baitIter))
  fi
  echo $baitIter $PREFIX_ITER $REFERENCE >> ${LOG_FILE}
  #===Running baiting step===
