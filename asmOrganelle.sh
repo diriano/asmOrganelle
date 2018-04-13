@@ -13,6 +13,8 @@ LOG_DIR=logs_asmOrganelle
 mkdir -p ${LOG_DIR}
 LOG_FILE=${LOG_DIR}/${PREFIX}.asmOrganelle.log
 
+#=Create BLAST database of External References
+makeblastdb -in $EXTERNAL_REFERENCE -dbtype nucl
 for baitIter in $(seq 1 $NUMBER_ITER_BAIT); do
  #===Define Variables for iteration===
  PREV_ITER=$((baitIter - 1))
@@ -32,7 +34,7 @@ for baitIter in $(seq 1 $NUMBER_ITER_BAIT); do
   REFERENCE=${EXTERNAL_REFERENCE}
   NUMBER_KMERS=${NUMBER_KMERS}
  else
-  REFERENCE=${PREFIX_PREV_ITER}.racon.${NUMBER_ITER_CNS}.fasta
+  REFERENCE=${PREFIX_PREV_ITER}.racon.${NUMBER_ITER_CNS}.filtered.fasta
   NUMBER_KMERS=$((NUMBER_KMERS * baitIter))
  fi
  echo $baitIter $PREFIX_ITER $REFERENCE >> ${LOG_FILE}
@@ -68,6 +70,9 @@ for baitIter in $(seq 1 $NUMBER_ITER_BAIT); do
   echo Running RACON iteration $baitIter polishing iteration $cnsIter DATE: `date` >> ${LOG_FILE}
   minimap2 -ax map-pb $CONTIGS ${BAIT_READS}.gz  > $SAM 2> ${LOG_SAM}
   racon --threads $NSLOTS ${BAIT_READS}.gz $SAM $CONTIGS > $POLISHEDCONTIGS 2> ${LOG_RACON}
+  blastn -task megablast -db $EXTERNAL_REFERENCE -query $POLISHEDCONTIGS -evalue 1e-5 -num_threads $NSLOTS -max_target_seqs 1 -outfmt '6 qseqid' |sort -u|wc -l > ${POLISHEDCONTIGS}.withHits2Ref.ids
+  /data1/bioinfo/bces_scripts/extractSequencesFromList.pl --fastafile ${POLISHEDCONTIGS} --listfile ${POLISHEDCONTIGS}.withHits2Ref.ids
+  mv ${POLISHEDCONTIGS}.withHits2Ref.ids.fasta ${PREFIX_ITER}.racon.${cnsIter}.filtered.fasta
   rm $SAM
   echo Finished running RACON iteration $baitIter polishing iteration $cnsIter DATE: `date` >> ${LOG_FILE}
  done
