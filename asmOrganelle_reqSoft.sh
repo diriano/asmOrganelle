@@ -5,6 +5,7 @@
 #mirabait 4.9.6
 #pigz 2.3.4
 #EMBOSS 6.6.0.0
+#ncbi_blast+ 2.7.1+
 
 minimap2 --version
 if [ $? -ne 0 ]; then
@@ -39,5 +40,11 @@ fi
 embossversion 
 if [ $? -ne 0 ]; then
  echo EMBOSS was not found
+ exit 1
+fi
+
+blastn -version
+if [ $? -ne 0 ]; then
+ echo NCBI BLAST+ was not found
  exit 1
 fi
