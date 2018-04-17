@@ -35,7 +35,7 @@ for baitIter in $(seq 1 $NUMBER_ITER_BAIT); do
   NUMBER_KMERS=${NUMBER_KMERS}
  else
   REFERENCE=${PREFIX_PREV_ITER}.racon.${NUMBER_ITER_CNS}.filtered.fasta
-  NUMBER_KMERS=$((NUMBER_KMERS * baitIter))
+  NUMBER_KMERS=$((NUMBER_KMERS + baitIter))
  fi
  echo $baitIter $PREFIX_ITER $REFERENCE >> ${LOG_FILE}
  #===Running baiting step===
